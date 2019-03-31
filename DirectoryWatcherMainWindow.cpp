@@ -143,7 +143,12 @@ void DirectoryWatcherMainWindow::constructFileInfoTableUI(
   vlayaut->addWidget(_filesCounter);
   _filesInfoView = new QTableView;
   _filesInfoView->setModel(_filesInfoModel);
-  _filesInfoView->resizeColumnsToContents();
+  _filesInfoView->setColumnWidth(FilesInfoTableModel::Column::COLUMN_FILE_NAME,
+								 COLUMN_FILE_NAME_WIDTH);
+  _filesInfoView->setColumnWidth(FilesInfoTableModel::Column::COLUMN_FILE_SIZE,
+								 COLUMN_FILE_SIZE_WIDTH);
+  _filesInfoView->setColumnWidth(FilesInfoTableModel::Column::COLUMN_FILE_TIME,
+								 COLUMN_FILE_TIME_WIDTH);
   _filesInfoView->setEditTriggers(QAbstractItemView::NoEditTriggers);
   _filesInfoView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -152,10 +157,6 @@ void DirectoryWatcherMainWindow::constructFileInfoTableUI(
   connect(_filesInfoView, &QTableView::customContextMenuRequested,
 		  this, &DirectoryWatcherMainWindow::slotCustomMenuRequested);
 
-  //When the information about the files in the model changes,
-  //  need change the width of the column.
-  connect(_filesInfoModel, &FilesInfoTableModel::infoChanged,
-		  _filesInfoView, &QTableView::resizeColumnsToContents );
   //Files count changed
   connect(_filesInfoModel, &FilesInfoTableModel::dataCountChanged,
 		  this, &DirectoryWatcherMainWindow::tableRowCountChanged);

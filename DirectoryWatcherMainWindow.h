@@ -43,6 +43,12 @@ signals:
 	void stopWatcher();
 
  private:
+	 enum ColumnDefaultWidth {
+		 COLUMN_FILE_NAME_WIDTH = 530,
+		 COLUMN_FILE_SIZE_WIDTH = 80,
+		 COLUMN_FILE_TIME_WIDTH = 140
+	 };
+
   const Platform         _platform;
   QLabel*                _labelDirPath          {nullptr};
   QLabel*                _filesCounter          {nullptr};

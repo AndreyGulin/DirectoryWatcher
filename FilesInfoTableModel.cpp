@@ -10,10 +10,9 @@ QVariant FilesInfoTableModel::headerData(int section,
 										 Qt::Orientation orientation,
 										 int role) const {
 
-	if ((role != Qt::DisplayRole) || (orientation != Qt::Horizontal)) {
+  if ((role != Qt::DisplayRole) || (orientation != Qt::Horizontal)) {
 	return QVariant();
   }
-
   switch (section) {
 	case COLUMN_FILE_NAME:
 	  return tr("File");
@@ -95,7 +94,6 @@ void FilesInfoTableModel::fileAdded(const QString fileName,
   beginInsertRows( QModelIndex(), row, row );
  _fileNameIndexes.push_back(fileName);
   endInsertRows();
-  emit infoChanged();
   emit dataCountChanged(_fileNameIndexes.length());
 }
 void FilesInfoTableModel::fileRemoved(const QString fileName) {
@@ -118,8 +116,7 @@ void FilesInfoTableModel::fileChanged(const QString fileName,
   }
   _filesInfo[fileName].fileSize = newFileSize;
   _filesInfo[fileName].timeFileCreateStr = timeFileWrite;
-
-  emit infoChanged();
+//TODO emit datachange!!
 }
 void FilesInfoTableModel::fileRenamed(const QString oldFileName,
 									  const QString newFileName,

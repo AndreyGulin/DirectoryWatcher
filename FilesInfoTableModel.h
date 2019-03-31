@@ -36,7 +36,6 @@ public:
 				   const QString timeFileWrite);
 
 signals:
-  void infoChanged();
   void dataCountChanged(int newCount);
 
 public:
@@ -46,6 +45,7 @@ public:
 	  COLUMN_FILE_TIME,
 	  COLUMN_COUNT
   };
+
 private:
   struct FileInfo {
 	QString fileName;
