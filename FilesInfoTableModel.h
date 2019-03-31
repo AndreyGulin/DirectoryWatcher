@@ -36,6 +36,7 @@ public:
 				   const QString timeFileWrite);
 
 signals:
+	// When files count changed, files added or removed
   void dataCountChanged(int newCount);
 
 public:

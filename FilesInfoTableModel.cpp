@@ -55,7 +55,7 @@ void FilesInfoTableModel::setDirectoryFilesWatcherListener(
 	DirectoryFilesWatcherListener *directoryFilesWatcherListener) {
 	_directoryFilesWatcherListener = directoryFilesWatcherListener;
 	_directoryFilesWatcherListener->setParent(this);
-
+	// Conected signals from listener with slots from model
 	connect(_directoryFilesWatcherListener, &DirectoryFilesWatcherListener::fileAddedSignal,
 			this, &FilesInfoTableModel::fileAdded, Qt::QueuedConnection);
 	connect(_directoryFilesWatcherListener, &DirectoryFilesWatcherListener::fileRemovedSignal,
@@ -116,7 +116,7 @@ void FilesInfoTableModel::fileChanged(const QString fileName,
   }
   _filesInfo[fileName].fileSize = newFileSize;
   _filesInfo[fileName].timeFileCreateStr = timeFileWrite;
-//TODO emit datachange!!
+
 }
 void FilesInfoTableModel::fileRenamed(const QString oldFileName,
 									  const QString newFileName,
@@ -124,6 +124,7 @@ void FilesInfoTableModel::fileRenamed(const QString oldFileName,
   if(!_filesInfo.contains(oldFileName)){
 	return;
   }
+  //Only file size dont changes
   fileAdded(newFileName, _filesInfo[oldFileName].fileSize, timeFileWrite);
   fileRemoved(oldFileName);
 }
