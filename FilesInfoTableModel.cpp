@@ -100,6 +100,7 @@ void FilesInfoTableModel::fileRemoved(const QString fileName) {
   if(!_filesInfo.contains(fileName)){
 	return;
   }
+  //this code can be optimized
   int row = _fileNameIndexes.indexOf(fileName);
 
   beginRemoveRows(QModelIndex(), row, row );
@@ -124,7 +125,7 @@ void FilesInfoTableModel::fileRenamed(const QString oldFileName,
   if(!_filesInfo.contains(oldFileName)){
 	return;
   }
-  //Only file size dont changes
+  //Only file size dont change
   fileAdded(newFileName, _filesInfo[oldFileName].fileSize, timeFileWrite);
   fileRemoved(oldFileName);
 }
