@@ -14,8 +14,6 @@ void DirectoryFilesWatcherListener::fileAdded(const std::wstring fileName,
 											  const std::string timeFileWrite) {
   QString qfileName = QString::fromStdWString(fileName);
   QString qtimeFileWrite = QString::fromStdString(timeFileWrite);
-  std::cout << "DirectoryFilesWatcherListener::fileAdded time "<< timeFileWrite ;
-  std::wcout  << L" file:" << fileName << L"\n";
   emit fileAddedSignal(qfileName, fileSize, qtimeFileWrite);
 }
 
