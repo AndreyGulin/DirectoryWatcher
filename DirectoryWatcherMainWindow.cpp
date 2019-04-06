@@ -206,15 +206,19 @@ void DirectoryWatcherMainWindow::constructCommandWatcherUI(
   vlayaut->addLayout(hLayout);
 }
 
-void DirectoryWatcherMainWindow::slotCustomMenuRequested(QPoint pos)
+void DirectoryWatcherMainWindow::constructFileInfoContextMenuUI()
 {
-	QMenu * menu = new QMenu(this);
-	QAction * renameFileAction = new QAction(tr("Rename file"), this);
+	_filesInfoContextMenu = new QMenu(this);
+	QAction* renameFileAction = new QAction(tr("Rename file"), this);
 
 	connect(renameFileAction, &QAction::triggered,
 			this, &DirectoryWatcherMainWindow::renameFile);
-	menu->addAction(renameFileAction);
-	menu->popup(_filesInfoView->viewport()->mapToGlobal(pos));
+	_filesInfoContextMenu->addAction(renameFileAction);
+}
+
+void DirectoryWatcherMainWindow::slotCustomMenuRequested(QPoint pos)
+{
+	_filesInfoContextMenu->popup(_filesInfoView->viewport()->mapToGlobal(pos));
 }
 
 IFileManager* DirectoryWatcherMainWindow::makeFileManager() {

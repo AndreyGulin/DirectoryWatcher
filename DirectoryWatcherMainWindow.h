@@ -30,6 +30,8 @@ private:
 	void constructFileInfoTableUI(QVBoxLayout *layaut);
 	void constructDirectoryPathInputUI(QVBoxLayout *layaut);
 	void constructCommandWatcherUI(QVBoxLayout *layaut);
+	void constructFileInfoContextMenuUI();
+
 	IFileManager* makeFileManager();
 public slots:
 	void dirChoiceDialog();
@@ -58,6 +60,7 @@ signals:
   QPushButton*           _dirChoseButton        {nullptr};
 
   QTableView*            _filesInfoView         {nullptr};
+  QMenu*                 _filesInfoContextMenu  {nullptr};
 
   DirectoryFilesWatcher* _directoryFilesWatcher {nullptr};
   FilesInfoTableModel*   _filesInfoModel        {nullptr};
