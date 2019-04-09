@@ -28,24 +28,35 @@ SOURCES += \
         main.cpp \
         DirectoryWatcherMainWindow.cpp \
     FilesInfoTableModel.cpp \
-    DirectoryFilesWatcherWin.cpp \
     DirectoryFilesWatcherListener.cpp \
     DirectoryFilesWatcher.cpp \
     IDirectoryFilesWatcher.cpp \
     IDirectoryFilesWatcherListener.cpp \
     IFileManager.cpp \
-    FileManagerWin.cpp
+
+    DirectoryControlsFactory.cpp
+
+win32 {
+     SOURCES += \
+     DirectoryFilesWatcherWin.cpp \
+     FileManagerWin.cpp
+}
 
 HEADERS += \
         DirectoryWatcherMainWindow.h \
     IDirectoryFilesWatcher.h \
     IDirectoryFilesWatcherListener.h \
     FilesInfoTableModel.h \
-    DirectoryFilesWatcherWin.h \
     DirectoryFilesWatcherListener.h \
     DirectoryFilesWatcher.h \
     IFileManager.h \
-    FileManagerWin.h
+    DirectoryControlsFactory.h
+
+win32 {
+     HEADERS += \
+     DirectoryFilesWatcherWin.h \
+     FileManagerWin.h
+}
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

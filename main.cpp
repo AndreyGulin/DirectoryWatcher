@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   //setup listener for this model
   filesInfoTableModel->setDirectoryFilesWatcherListener(directoryFilesWatcherListener);
 
-  DirectoryWatcherMainWindow w(filesInfoTableModel, Platform::WINDOWS);
+  DirectoryWatcherMainWindow w(filesInfoTableModel);
   w.show();
 
   return a.exec();

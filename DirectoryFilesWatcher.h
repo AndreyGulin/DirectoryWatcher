@@ -2,34 +2,25 @@
 #define DIRECTORYFILESWATCHER_H
 
 #include <QObject>
-#include "DirectoryFilesWatcherWin.h"
+#include "IDirectoryFilesWatcher.h"
+#include "IDirectoryFilesWatcherListener.h"
 
-
-enum class Platform: int {
-	LINUX,
-	MACOSX,
-	WINDOWS,
-	UNKNOWN
-};
-
+//TODO rename to worker
 class DirectoryFilesWatcher : public QObject {
 Q_OBJECT
 public:
-	DirectoryFilesWatcher(const Platform platform, const QString dirPath,
+	DirectoryFilesWatcher(const QString dirPath,
 						  IDirectoryFilesWatcherListener *dfwl);
 	~DirectoryFilesWatcher() override;
 
 	void process() ;
-private:
-IDirectoryFilesWatcher* getDirectoryFilesWatcher(const Platform platform,
-													 const QString dirPath);
+
 public slots:
 	void stop();
 
 signals:
 	void finished();
 private:
-  const Platform                  _platform;
   const QString                   _dirPath;
   IDirectoryFilesWatcher*         _directoryFilesWatcherInst;
   IDirectoryFilesWatcherListener* _directoryFilesWatcherListener;

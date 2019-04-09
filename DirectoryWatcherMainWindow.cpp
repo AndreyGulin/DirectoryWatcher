@@ -1,5 +1,3 @@
-#include "DirectoryWatcherMainWindow.h"
-#include "FileManagerWin.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QInputDialog>
@@ -7,19 +5,21 @@
 #include <QHBoxLayout>
 #include <QThread>
 
+#include "DirectoryWatcherMainWindow.h"
+#include "DirectoryControlsFactory.h"
+
 DirectoryWatcherMainWindow::DirectoryWatcherMainWindow(
-	FilesInfoTableModel* filesInfoTableModel, const Platform platform,
-	QWidget* parent)
+	FilesInfoTableModel* filesInfoTableModel, QWidget* parent)
 	: QMainWindow(parent),
-	  _platform(platform),
 	  _filesInfoModel(filesInfoTableModel),
-	  _fileManager(makeFileManager()){
+	  _fileManager(DirectoryControlsFactory::makeFileManager()){
 
   _filesInfoModel->setParent(this);
 
   QVBoxLayout* vLayout = new QVBoxLayout;
 
   constructFileInfoTableUI(vLayout);
+  constructFileInfoContextMenuUI();
   constructDirectoryPathInputUI(vLayout);
   constructCommandWatcherUI(vLayout);
 
@@ -74,9 +74,9 @@ void DirectoryWatcherMainWindow::startWatcher() {
   _startWatcherButton->setEnabled(false);
   _dirChoseButton->setEnabled(false);
 
-  _directoryFilesWatcher = new DirectoryFilesWatcher(
-	  _platform, _labelDirPath->text(),
-	  _filesInfoModel->getDirectoryFilesWatcherListener());
+  //TODO rename to WatchWorker
+  _directoryFilesWatcher = new DirectoryFilesWatcher(_labelDirPath->text(),
+							_filesInfoModel->getDirectoryFilesWatcherListener());
   // stop watche button clicked, signal to watcher
   connect(this, &DirectoryWatcherMainWindow::stopWatcher,
 		  _directoryFilesWatcher, &DirectoryFilesWatcher::stop, Qt::DirectConnection);
@@ -219,19 +219,5 @@ void DirectoryWatcherMainWindow::constructFileInfoContextMenuUI()
 void DirectoryWatcherMainWindow::slotCustomMenuRequested(QPoint pos)
 {
 	_filesInfoContextMenu->popup(_filesInfoView->viewport()->mapToGlobal(pos));
-}
-
-IFileManager* DirectoryWatcherMainWindow::makeFileManager() {
-	switch (_platform) {
-	case Platform::WINDOWS: {
-		return new FileManagerWin();
-	}
-	case Platform::MACOSX:
-	case Platform::LINUX:
-	case Platform::UNKNOWN: {
-		return nullptr;
-	}
-	}
-	return nullptr;
 }
 

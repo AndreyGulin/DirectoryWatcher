@@ -9,6 +9,7 @@
 
 #include <memory>
 
+//TODO rename to  DirectoryFilesWatchWorker ?
 #include "DirectoryFilesWatcher.h"
 #include "FilesInfoTableModel.h"
 #include "IFileManager.h"
@@ -18,7 +19,6 @@ class DirectoryWatcherMainWindow : public QMainWindow {
 
 public:
 	DirectoryWatcherMainWindow(FilesInfoTableModel* filesInfoTableModel,
-							   const Platform platform,
 							   QWidget* parent = nullptr);
   ~DirectoryWatcherMainWindow();
 
@@ -51,7 +51,6 @@ signals:
 		 COLUMN_FILE_TIME_WIDTH = 140
 	 };
 
-  const Platform         _platform;
   QLabel*                _labelDirPath          {nullptr};
   QLabel*                _filesCounter          {nullptr};
 
